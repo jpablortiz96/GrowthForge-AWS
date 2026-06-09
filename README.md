@@ -17,8 +17,10 @@
 | [Executive one-pager](JUDGE_ONE_PAGER.md) | The problem, differentiation, AWS value, and review path |
 | [Static demo](demo/index.html) | Score -> funnel drop -> experiment -> Bedrock insight -> Kiro tasks |
 | [Evidence pack](EVIDENCE_PACK.md) | Claim-by-claim production, security, cost, and reusability checks |
-| [Demo script](DEMO_SCRIPT.md) | A timed 30-45 second walkthrough |
 | [Final submission](submission.md) | Challenge-ready copy and final pitch |
+| [Worked generated output](examples/generated-output-example.md) | Architecture, events, funnel, experiment, score, insight, and controls |
+
+Record a 30-45 second walkthrough using the static demo path.
 
 ---
 
@@ -145,7 +147,6 @@ The demo is one responsive HTML file with no build step, network calls, external
 |-- README.md
 |-- JUDGE_ONE_PAGER.md
 |-- EVIDENCE_PACK.md
-|-- DEMO_SCRIPT.md
 |-- CONTRIBUTING.md
 |-- LICENSE
 |-- submission.md

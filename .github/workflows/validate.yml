@@ -22,21 +22,15 @@ jobs:
             README.md
             JUDGE_ONE_PAGER.md
             EVIDENCE_PACK.md
-            DEMO_SCRIPT.md
-            CONTRIBUTING.md
-            LICENSE
             submission.md
             prompt/growthforge-master-prompt.md
             architecture/architecture.md
             demo/index.html
-            docs/prerequisites.md
-            docs/use-case.md
             docs/aws-services.md
             docs/well-architected-mapping.md
             docs/security-cost-controls.md
-            docs/troubleshooting.md
-            examples/startup-input-example.md
             examples/generated-output-example.md
+            examples/startup-input-example.md
             examples/kiro-tasks-example.md
           )
 

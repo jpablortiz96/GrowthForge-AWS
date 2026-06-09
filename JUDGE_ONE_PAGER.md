@@ -91,8 +91,8 @@ The prompt is product- and stack-adaptable: it starts from a startup's business 
 
 ## Review next
 
-- [Master prompt](prompt/growthforge-master-prompt.md)
+- [Static demo](demo/index.html)
 - [Evidence pack](EVIDENCE_PACK.md)
-- [30-45 second demo script](DEMO_SCRIPT.md)
 - [Final submission copy](submission.md)
 - [Worked generated output](examples/generated-output-example.md)
+- [Master prompt](prompt/growthforge-master-prompt.md)

@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="GrowthForge AWS turns a deployed startup MVP into an AWS-native revenue learning system.">
+  <meta name="theme-color" content="#080a0f">
+  <title>GrowthForge AWS</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #080a0f;
+      --panel: rgba(19, 24, 34, 0.86);
+      --line: rgba(255, 255, 255, 0.1);
+      --text: #f7f8fa;
+      --muted: #a7b0be;
+      --orange: #ff9900;
+      --orange-soft: #ffbd5c;
+      --green: #63d9a6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      display: grid;
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      place-items: center;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 80% 0, rgba(255, 153, 0, 0.15), transparent 31rem),
+        radial-gradient(circle at 10% 90%, rgba(68, 122, 255, 0.08), transparent 26rem),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body::before {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      content: "";
+      opacity: 0.22;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(to bottom, black, transparent 90%);
+    }
+
+    main {
+      width: min(920px, calc(100% - 32px));
+      padding: 64px 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      gap: 11px;
+      align-items: center;
+      color: var(--orange-soft);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .mark {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border: 1px solid rgba(255,153,0,0.45);
+      border-radius: 11px;
+      background: rgba(255,153,0,0.1);
+    }
+
+    .mark::before {
+      width: 13px;
+      height: 13px;
+      content: "";
+      border: 2px solid currentColor;
+      border-top-color: transparent;
+      border-radius: 50%;
+      transform: rotate(-35deg);
+    }
+
+    .eyebrow {
+      margin: 54px 0 14px;
+      color: var(--orange-soft);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 790px;
+      margin: 0;
+      font-size: clamp(46px, 8vw, 78px);
+      font-weight: 760;
+      letter-spacing: -0.06em;
+      line-height: 0.98;
+    }
+
+    h1 span {
+      color: var(--orange);
+    }
+
+    .lead {
+      max-width: 720px;
+      margin: 26px 0 0;
+      color: var(--muted);
+      font-size: clamp(17px, 2.5vw, 21px);
+      line-height: 1.65;
+    }
+
+    .primary {
+      display: inline-flex;
+      margin-top: 32px;
+      padding: 14px 19px;
+      border: 1px solid rgba(255,153,0,0.5);
+      border-radius: 12px;
+      background: linear-gradient(135deg, #ff9900, #ffb647);
+      box-shadow: 0 16px 45px rgba(255,153,0,0.16);
+      color: #171006;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .primary:hover,
+    .primary:focus-visible {
+      filter: brightness(1.06);
+      outline: 2px solid var(--orange-soft);
+      outline-offset: 3px;
+    }
+
+    .links {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 13px;
+      margin-top: 42px;
+    }
+
+    .card {
+      min-height: 122px;
+      padding: 19px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--panel);
+      color: inherit;
+      text-decoration: none;
+      backdrop-filter: blur(18px);
+      transition: border-color 160ms ease, transform 160ms ease;
+    }
+
+    .card:hover,
+    .card:focus-visible {
+      border-color: rgba(255,153,0,0.42);
+      outline: none;
+      transform: translateY(-2px);
+    }
+
+    .card small {
+      color: var(--orange-soft);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .card strong {
+      display: block;
+      margin-top: 10px;
+      font-size: 17px;
+    }
+
+    .card span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    footer {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-top: 42px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    footer::before {
+      width: 7px;
+      height: 7px;
+      content: "";
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 12px rgba(99,217,166,0.6);
+    }
+
+    @media (max-width: 680px) {
+      main {
+        padding: 38px 0;
+      }
+
+      .eyebrow {
+        margin-top: 42px;
+      }
+
+      .links {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="brand"><span class="mark" aria-hidden="true"></span>GrowthForge AWS</div>
+    <p class="eyebrow">Agentic revenue experimentation</p>
+    <h1>Deploy the MVP.<br><span>Learn what grows.</span></h1>
+    <p class="lead">
+      A production-minded prompt package that turns startup product events into a measurable funnel,
+      a reversible experiment, an aggregate-grounded Amazon Bedrock insight, and Kiro-ready tasks.
+    </p>
+
+    <a class="primary" href="demo/index.html">Open the 30-second demo</a>
+
+    <nav class="links" aria-label="GrowthForge resources">
+      <a class="card" href="https://github.com/jpablortiz96/GrowthForge-AWS#readme">
+        <small>Repository</small>
+        <strong>Read the GitHub README</strong>
+        <span>Review the visual overview, evidence, architecture, and usage path.</span>
+      </a>
+      <a class="card" href="prompt/growthforge-master-prompt.md">
+        <small>Copy-paste prompt</small>
+        <strong>Open the master prompt</strong>
+        <span>Use the complete 24-section architecture and implementation contract.</span>
+      </a>
+      <a class="card" href="JUDGE_ONE_PAGER.md">
+        <small>Judge path</small>
+        <strong>Read the one-pager</strong>
+        <span>Understand the hidden problem, differentiation, and evidence in under a minute.</span>
+      </a>
+    </nav>
+
+    <footer>Static, dependency-free, and built without official AWS logos or brand assets.</footer>
+  </main>
+</body>
+</html>

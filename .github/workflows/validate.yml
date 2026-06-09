@@ -23,6 +23,8 @@ jobs:
             JUDGE_ONE_PAGER.md
             EVIDENCE_PACK.md
             submission.md
+            index.html
+            .github/workflows/pages.yml
             prompt/growthforge-master-prompt.md
             architecture/architecture.md
             demo/index.html
@@ -71,6 +73,28 @@ jobs:
           done
 
           echo "All key phrases are present."
+
+      - name: Verify private files are not referenced
+        shell: bash
+        run: |
+          set -euo pipefail
+          public_files=(
+            README.md
+            JUDGE_ONE_PAGER.md
+            EVIDENCE_PACK.md
+            submission.md
+            .github/workflows/validate.yml
+            .github/workflows/pages.yml
+            index.html
+          )
+
+          private_marker="DEMO""_SCRIPT"
+          if grep -F -n "$private_marker" "${public_files[@]}"; then
+            echo "Public files must not reference private demo scripts."
+            exit 1
+          fi
+
+          echo "No private demo-script references found."
 
       - name: Check core consistency and demo constraints
         shell: bash

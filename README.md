@@ -10,6 +10,8 @@
 
 `Revenue Learning Score` | `AWS-native` | `Bedrock-grounded` | `AppConfig experiments` | `Kiro-ready tasks` | `Cost-capped`
 
+> **Why judges should care:** GrowthForge connects the post-deployment disciplines startups usually assemble separately - product analytics, controlled experimentation, grounded AI, AWS operations, FinOps, and implementation planning - around one accountable growth decision.
+
 [Open the 30-second demo](demo/index.html) | [Copy the master prompt](prompt/growthforge-master-prompt.md) | [Read the judge one-pager](JUDGE_ONE_PAGER.md)
 
 ### For judges
@@ -23,6 +25,12 @@
 | [Worked generated output](examples/generated-output-example.md) | Architecture, events, funnel, experiment, score, insight, and controls |
 
 Record a 30-45 second walkthrough using the static demo path.
+
+### Live demo
+
+[GitHub Pages demo placeholder](https://YOUR_GITHUB_USERNAME.github.io/GrowthForge-AWS/demo/) | [Local repository fallback](demo/index.html)
+
+> Replace `YOUR_GITHUB_USERNAME` after GitHub Pages is enabled.
 
 ## 30-second review path
 
@@ -156,7 +164,9 @@ The demo is one responsive HTML file with no build step, network calls, external
 |-- package.json
 |-- package-lock.json
 |-- submission.md
+|-- index.html
 |-- .github/workflows/validate.yml
+|-- .github/workflows/pages.yml
 |-- assets/
 |   `-- readme/
 |       |-- architecture-diagram.svg

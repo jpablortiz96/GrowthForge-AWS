@@ -85,6 +85,12 @@ This file maps submission claims to repository evidence. Checkboxes indicate tha
 - [x] Revenue Learning Score visual exists - [`assets/readme/revenue-learning-score.svg`](assets/readme/revenue-learning-score.svg)
 - [x] Judge path visual exists - [`assets/readme/judge-path.svg`](assets/readme/judge-path.svg)
 
+## Static publishing evidence
+
+- [x] GitHub Pages deployment workflow exists - [`.github/workflows/pages.yml`](.github/workflows/pages.yml)
+- [x] Root landing page exists - [`index.html`](index.html)
+- [x] Demo can be served as a dependency-free static site - [`demo/index.html`](demo/index.html)
+
 ## Example output evidence
 
 - [x] Architecture summary

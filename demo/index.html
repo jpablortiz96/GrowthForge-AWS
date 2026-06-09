@@ -1,0 +1,1385 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="GrowthForge AWS static demo: an agentic revenue experimentation stack for startups.">
+  <title>GrowthForge AWS | Revenue Learning Console</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #07090d;
+      --bg-soft: #0b0f16;
+      --panel: rgba(17, 22, 31, 0.78);
+      --panel-strong: rgba(22, 28, 39, 0.94);
+      --line: rgba(255, 255, 255, 0.09);
+      --line-hot: rgba(255, 153, 51, 0.34);
+      --text: #f6f7f9;
+      --muted: #98a2b3;
+      --muted-strong: #c1c7d0;
+      --orange: #ff9900;
+      --orange-soft: #ffb84d;
+      --amber: #ffd27a;
+      --green: #63d9a6;
+      --blue: #75bfff;
+      --red: #ff7d86;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+      --radius: 24px;
+      --radius-sm: 14px;
+      --max: 1220px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 78% -8%, rgba(255, 153, 0, 0.16), transparent 29rem),
+        radial-gradient(circle at -5% 35%, rgba(51, 112, 255, 0.10), transparent 26rem),
+        linear-gradient(180deg, #07090d 0%, #080b11 45%, #06080c 100%);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.5;
+    }
+
+    body::before {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      content: "";
+      opacity: 0.2;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(to bottom, black, transparent 78%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .shell {
+      width: min(calc(100% - 36px), var(--max));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 78px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      display: inline-flex;
+      gap: 12px;
+      align-items: center;
+      font-size: 15px;
+      font-weight: 780;
+      letter-spacing: -0.01em;
+    }
+
+    .brand-mark {
+      position: relative;
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      overflow: hidden;
+      border: 1px solid var(--line-hot);
+      border-radius: 11px;
+      background: linear-gradient(145deg, rgba(255, 153, 0, 0.26), rgba(255, 153, 0, 0.04));
+      box-shadow: inset 0 0 18px rgba(255, 153, 0, 0.12);
+      color: var(--orange-soft);
+    }
+
+    .brand-mark::after {
+      width: 14px;
+      height: 14px;
+      content: "";
+      border: 2px solid currentColor;
+      border-top-color: transparent;
+      border-radius: 50%;
+      transform: rotate(-35deg);
+    }
+
+    .brand span:last-child {
+      color: var(--orange-soft);
+    }
+
+    .status {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 8px 11px;
+      border: 1px solid rgba(99, 217, 166, 0.18);
+      border-radius: 999px;
+      background: rgba(99, 217, 166, 0.06);
+      color: #b8f4da;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .status::before {
+      width: 7px;
+      height: 7px;
+      content: "";
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 13px var(--green);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(300px, 0.7fr);
+      gap: 60px;
+      align-items: center;
+      padding: 82px 0 58px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 9px;
+      align-items: center;
+      margin: 0 0 18px;
+      color: var(--orange-soft);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      width: 24px;
+      height: 1px;
+      content: "";
+      background: currentColor;
+    }
+
+    h1 {
+      max-width: 780px;
+      margin: 0;
+      font-size: clamp(44px, 7vw, 84px);
+      font-weight: 760;
+      letter-spacing: -0.065em;
+      line-height: 0.98;
+    }
+
+    h1 em {
+      color: var(--orange);
+      font-style: normal;
+    }
+
+    .hero-copy {
+      max-width: 700px;
+      margin: 26px 0 0;
+      color: var(--muted-strong);
+      font-size: clamp(17px, 2vw, 20px);
+      line-height: 1.7;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .chip {
+      padding: 9px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.025);
+      color: var(--muted-strong);
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .hero-aside {
+      position: relative;
+      min-height: 265px;
+      padding: 28px;
+      overflow: hidden;
+      border: 1px solid var(--line-hot);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(145deg, rgba(255, 153, 0, 0.13), rgba(255, 255, 255, 0.02) 46%),
+        var(--panel);
+      box-shadow: var(--shadow), inset 0 1px rgba(255, 255, 255, 0.06);
+    }
+
+    .hero-aside::after {
+      position: absolute;
+      right: -45px;
+      bottom: -45px;
+      width: 180px;
+      height: 180px;
+      content: "";
+      border: 1px solid rgba(255, 153, 0, 0.17);
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 28px rgba(255, 153, 0, 0.035),
+        0 0 0 58px rgba(255, 153, 0, 0.025);
+    }
+
+    .aside-label {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .aside-value {
+      margin-top: 17px;
+      font-size: 31px;
+      font-weight: 720;
+      letter-spacing: -0.045em;
+      line-height: 1.08;
+    }
+
+    .aside-note {
+      max-width: 290px;
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .aside-flow {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-top: 25px;
+      color: var(--muted-strong);
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 11px;
+    }
+
+    .aside-flow b {
+      color: var(--orange-soft);
+      font-weight: 700;
+    }
+
+    .judge-path {
+      display: grid;
+      grid-template-columns: auto repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      align-items: stretch;
+      margin: 0 auto 18px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(12, 16, 23, 0.82);
+      box-shadow: inset 0 1px rgba(255,255,255,0.035);
+      backdrop-filter: blur(16px);
+    }
+
+    .judge-path-label {
+      display: flex;
+      min-width: 136px;
+      padding: 8px 10px;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .judge-path-label strong {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .judge-path-label span {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 9px;
+    }
+
+    .judge-link {
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 9px;
+      align-items: center;
+      min-height: 49px;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: rgba(255,255,255,0.022);
+      color: var(--muted-strong);
+      font-size: 10px;
+      font-weight: 720;
+      transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+    }
+
+    .judge-link:hover,
+    .judge-link:focus-visible {
+      border-color: var(--line-hot);
+      outline: none;
+      background: rgba(255,153,0,0.055);
+      transform: translateY(-1px);
+    }
+
+    .judge-number {
+      display: grid;
+      width: 24px;
+      height: 24px;
+      place-items: center;
+      border: 1px solid rgba(255,153,0,0.24);
+      border-radius: 8px;
+      background: rgba(255,153,0,0.08);
+      color: var(--orange-soft);
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+    main {
+      padding-bottom: 70px;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      position: relative;
+      padding: 25px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(150deg, rgba(255, 255, 255, 0.038), transparent 38%),
+        var(--panel);
+      box-shadow: inset 0 1px rgba(255, 255, 255, 0.035);
+      backdrop-filter: blur(18px);
+      scroll-margin-top: 18px;
+    }
+
+    .card::before {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      content: "";
+      border-radius: inherit;
+      background: linear-gradient(115deg, transparent 65%, rgba(255, 153, 0, 0.025));
+    }
+
+    .score-card {
+      grid-column: span 5;
+      min-height: 510px;
+    }
+
+    .funnel-card {
+      grid-column: span 7;
+      min-height: 510px;
+    }
+
+    .experiment-card {
+      grid-column: span 7;
+      min-height: 405px;
+    }
+
+    .insight-card {
+      grid-column: span 5;
+      min-height: 405px;
+    }
+
+    .tasks-card {
+      grid-column: span 5;
+      min-height: 410px;
+    }
+
+    .services-card {
+      grid-column: span 7;
+      min-height: 410px;
+    }
+
+    .card-head {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .kicker {
+      margin: 0 0 6px;
+      color: var(--orange-soft);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 720;
+      letter-spacing: -0.025em;
+    }
+
+    .sub {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .tag {
+      flex: none;
+      padding: 7px 9px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: rgba(255,255,255,0.025);
+      color: var(--muted-strong);
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .score-wrap {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 190px 1fr;
+      gap: 24px;
+      align-items: center;
+      margin-top: 34px;
+    }
+
+    .score-ring {
+      --score: 87;
+      display: grid;
+      width: 184px;
+      height: 184px;
+      place-items: center;
+      border-radius: 50%;
+      background:
+        radial-gradient(closest-side, #10151e 79%, transparent 81% 100%),
+        conic-gradient(var(--orange) calc(var(--score) * 1%), rgba(255,255,255,0.07) 0);
+      box-shadow: 0 0 50px rgba(255, 153, 0, 0.09);
+    }
+
+    .score-number {
+      text-align: center;
+    }
+
+    .score-number strong {
+      display: block;
+      font-size: 54px;
+      font-weight: 760;
+      letter-spacing: -0.075em;
+      line-height: 0.92;
+    }
+
+    .score-number span {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .score-state {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .score-copy {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .metric-list {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 15px;
+      margin-top: 31px;
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px 16px;
+      align-items: center;
+    }
+
+    .metric-name {
+      color: var(--muted-strong);
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .metric-value {
+      font-size: 12px;
+      font-weight: 760;
+    }
+
+    .track {
+      grid-column: 1 / -1;
+      height: 5px;
+      overflow: hidden;
+      border-radius: 99px;
+      background: rgba(255,255,255,0.07);
+    }
+
+    .fill {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--orange), var(--amber));
+      box-shadow: 0 0 16px rgba(255,153,0,0.28);
+      transition: width 900ms cubic-bezier(.2,.8,.2,1);
+    }
+
+    .funnel {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 13px;
+      margin-top: 31px;
+    }
+
+    .funnel-row {
+      display: grid;
+      grid-template-columns: 155px 1fr 67px;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .funnel-label strong,
+    .funnel-label span {
+      display: block;
+    }
+
+    .funnel-label strong {
+      font-size: 12px;
+      font-weight: 680;
+    }
+
+    .funnel-label span {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .funnel-bar-wrap {
+      height: 38px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 10px;
+      background: rgba(255,255,255,0.025);
+    }
+
+    .funnel-bar {
+      display: flex;
+      width: 0;
+      height: 100%;
+      align-items: center;
+      min-width: 4px;
+      border-right: 1px solid rgba(255,255,255,0.14);
+      border-radius: 9px;
+      background:
+        linear-gradient(90deg, rgba(255,153,0,0.84), rgba(255,184,77,0.46)),
+        var(--orange);
+      transition: width 1000ms cubic-bezier(.2,.8,.2,1);
+    }
+
+    .funnel-row:nth-child(2) .funnel-bar { opacity: 0.88; }
+    .funnel-row:nth-child(3) .funnel-bar { opacity: 0.76; }
+    .funnel-row:nth-child(4) .funnel-bar { opacity: 0.68; }
+    .funnel-row:nth-child(5) .funnel-bar { opacity: 0.60; }
+
+    .funnel-count {
+      text-align: right;
+    }
+
+    .funnel-count strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .funnel-count span {
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .constraint {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-top: 24px;
+      padding: 14px 15px;
+      border: 1px solid rgba(255, 153, 0, 0.18);
+      border-radius: var(--radius-sm);
+      background: rgba(255, 153, 0, 0.055);
+      color: var(--muted-strong);
+      font-size: 12px;
+    }
+
+    .constraint b {
+      color: var(--orange-soft);
+    }
+
+    .constraint-mark {
+      display: grid;
+      flex: none;
+      width: 22px;
+      height: 22px;
+      place-items: center;
+      border-radius: 7px;
+      background: rgba(255,153,0,0.13);
+      color: var(--orange-soft);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .experiment-title {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      margin: 29px 0 0;
+      font-size: clamp(23px, 3vw, 34px);
+      font-weight: 720;
+      letter-spacing: -0.045em;
+      line-height: 1.14;
+    }
+
+    .experiment-title em {
+      color: var(--orange-soft);
+      font-style: normal;
+    }
+
+    .variant-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    .variant {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.023);
+    }
+
+    .variant.treatment {
+      border-color: rgba(255,153,0,0.24);
+      background: rgba(255,153,0,0.052);
+    }
+
+    .variant small {
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .variant strong {
+      display: block;
+      margin-top: 4px;
+      font-size: 17px;
+    }
+
+    .variant p {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .guardrails {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .guardrail {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+      color: var(--muted-strong);
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .guardrail::before {
+      width: 5px;
+      height: 5px;
+      content: "";
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    .insight-body {
+      position: relative;
+      z-index: 1;
+      margin-top: 30px;
+    }
+
+    .quote-mark {
+      color: rgba(255,153,0,0.58);
+      font-family: Georgia, serif;
+      font-size: 58px;
+      line-height: 0.5;
+    }
+
+    blockquote {
+      margin: 14px 0 0;
+      font-size: 18px;
+      font-weight: 610;
+      letter-spacing: -0.022em;
+      line-height: 1.48;
+    }
+
+    .insight-separator {
+      height: 1px;
+      margin: 23px 0 16px;
+      background: linear-gradient(90deg, var(--line-hot), transparent);
+    }
+
+    .insight-action {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .insight-action b {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--green);
+      font-size: 10px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .evidence {
+      display: inline-flex;
+      gap: 7px;
+      align-items: center;
+      margin-top: 18px;
+      padding: 7px 9px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--muted);
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 9px;
+    }
+
+    .task-list {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 10px;
+      margin-top: 27px;
+    }
+
+    .task {
+      display: grid;
+      grid-template-columns: 32px 1fr auto;
+      gap: 11px;
+      align-items: center;
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.021);
+    }
+
+    .task-id {
+      color: var(--orange-soft);
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+    .task-name {
+      color: var(--muted-strong);
+      font-size: 11px;
+      font-weight: 650;
+    }
+
+    .task-state {
+      padding: 4px 7px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      color: var(--muted);
+      font-size: 8px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .task-state.ready {
+      border-color: rgba(99,217,166,0.16);
+      background: rgba(99,217,166,0.055);
+      color: #9be9c7;
+    }
+
+    .task-foot {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 17px;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .services {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 27px;
+    }
+
+    .service {
+      min-height: 88px;
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .service-icon {
+      display: grid;
+      width: 24px;
+      height: 24px;
+      place-items: center;
+      border: 1px solid rgba(255,153,0,0.22);
+      border-radius: 7px;
+      background: rgba(255,153,0,0.07);
+      color: var(--orange-soft);
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 8px;
+      font-weight: 800;
+    }
+
+    .service strong {
+      display: block;
+      margin-top: 9px;
+      font-size: 10px;
+      font-weight: 670;
+      line-height: 1.25;
+    }
+
+    .service span {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 8px;
+    }
+
+    .flowline {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+      margin-top: 17px;
+      color: var(--muted);
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 9px;
+    }
+
+    .flowline b {
+      color: var(--muted-strong);
+    }
+
+    .flowline i {
+      color: var(--orange);
+      font-style: normal;
+    }
+
+    footer {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 32px 0 45px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    footer strong {
+      color: var(--muted-strong);
+    }
+
+    .footer-note {
+      max-width: 620px;
+      text-align: right;
+    }
+
+    @media (max-width: 980px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding-top: 60px;
+      }
+
+      .hero-aside {
+        min-height: auto;
+      }
+
+      .score-card,
+      .funnel-card,
+      .experiment-card,
+      .insight-card,
+      .tasks-card,
+      .services-card {
+        grid-column: span 12;
+        min-height: auto;
+      }
+
+      .score-wrap {
+        grid-template-columns: 184px 1fr;
+      }
+
+      .judge-path {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+      }
+
+      .judge-path-label {
+        grid-column: 1 / -1;
+        min-width: 0;
+        padding: 4px 6px;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .shell {
+        width: min(calc(100% - 24px), var(--max));
+      }
+
+      .topbar {
+        min-height: 66px;
+      }
+
+      .status {
+        padding: 7px 9px;
+        font-size: 10px;
+      }
+
+      .hero {
+        padding: 49px 0 40px;
+      }
+
+      h1 {
+        font-size: clamp(42px, 14vw, 62px);
+      }
+
+      .hero-copy {
+        font-size: 16px;
+      }
+
+      .judge-path {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .judge-link:last-child {
+        grid-column: 1 / -1;
+      }
+
+      .card {
+        padding: 20px;
+        border-radius: 19px;
+      }
+
+      .score-wrap {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+      }
+
+      .funnel-row {
+        grid-template-columns: 112px 1fr 55px;
+        gap: 9px;
+      }
+
+      .funnel-label strong {
+        font-size: 10px;
+      }
+
+      .variant-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .services {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .task {
+        grid-template-columns: 30px 1fr;
+      }
+
+      .task-state {
+        grid-column: 2;
+        justify-self: start;
+      }
+
+      footer {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .footer-note {
+        text-align: left;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .fill,
+      .funnel-bar {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="shell topbar">
+    <a class="brand" href="#top" aria-label="GrowthForge AWS home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>GrowthForge <span>AWS</span></span>
+    </a>
+    <span class="status">Learning loop healthy</span>
+  </header>
+
+  <div class="shell hero" id="top">
+    <div>
+      <p class="eyebrow">Agentic revenue experimentation</p>
+      <h1>Ship less guesswork.<br><em>Learn what grows.</em></h1>
+      <p class="hero-copy">
+        An AWS-native decision loop that turns product events into a measurable funnel,
+        a reversible experiment, a grounded insight, and implementation-ready tasks.
+      </p>
+      <div class="hero-meta" aria-label="System characteristics">
+        <span class="chip">No PII by default</span>
+        <span class="chip">Under $150/month target</span>
+        <span class="chip">Daily evidence cycle</span>
+        <span class="chip">Rollback first</span>
+      </div>
+    </div>
+
+    <aside class="hero-aside" aria-label="Current recommendation">
+      <div class="aside-label">Next best decision</div>
+      <div class="aside-value">Validate checkout friction, then open a guarded 5% canary.</div>
+      <p class="aside-note">
+        The largest measured loss sits before details submission. Instrument the cause before claiming the form is responsible.
+      </p>
+      <div class="aside-flow" aria-label="Decision flow">
+        <b>signal</b> / funnel / experiment / insight / task
+      </div>
+    </aside>
+  </div>
+
+  <nav class="shell judge-path" aria-label="Judge path through the demo">
+    <div class="judge-path-label">
+      <strong>Judge path</strong>
+      <span>Five proof points in 30 seconds</span>
+    </div>
+    <a class="judge-link" href="#score">
+      <span class="judge-number">1</span>
+      <span>Score</span>
+    </a>
+    <a class="judge-link" href="#funnel">
+      <span class="judge-number">2</span>
+      <span>Funnel drop</span>
+    </a>
+    <a class="judge-link" href="#experiment">
+      <span class="judge-number">3</span>
+      <span>Experiment</span>
+    </a>
+    <a class="judge-link" href="#insight">
+      <span class="judge-number">4</span>
+      <span>Bedrock insight</span>
+    </a>
+    <a class="judge-link" href="#tasks">
+      <span class="judge-number">5</span>
+      <span>Kiro tasks</span>
+    </a>
+  </nav>
+
+  <main class="shell">
+    <div class="dashboard">
+      <section class="card score-card" id="score" aria-labelledby="score-title">
+        <div class="card-head">
+          <div>
+            <p class="kicker">Decision readiness</p>
+            <h2 id="score-title">Revenue Learning Score</h2>
+            <p class="sub">Evidence quality, not a revenue prediction</p>
+          </div>
+          <span class="tag">30d window</span>
+        </div>
+
+        <div class="score-wrap">
+          <div class="score-ring" role="img" aria-label="Revenue Learning Score: 87 out of 100">
+            <div class="score-number">
+              <strong>87</strong>
+              <span>out of 100</span>
+            </div>
+          </div>
+          <div>
+            <div class="score-state">Decision-ready</div>
+            <p class="score-copy">
+              Strong signal and experiment controls. Final sample sizing and a rollback drill remain open.
+            </p>
+          </div>
+        </div>
+
+        <div class="metric-list">
+          <div class="metric-row">
+            <span class="metric-name">Signal quality</span>
+            <span class="metric-value">23 / 25</span>
+            <div class="track"><div class="fill" data-width="92%"></div></div>
+          </div>
+          <div class="metric-row">
+            <span class="metric-name">Funnel clarity</span>
+            <span class="metric-value">21 / 25</span>
+            <div class="track"><div class="fill" data-width="84%"></div></div>
+          </div>
+          <div class="metric-row">
+            <span class="metric-name">Experiment readiness</span>
+            <span class="metric-value">22 / 25</span>
+            <div class="track"><div class="fill" data-width="88%"></div></div>
+          </div>
+          <div class="metric-row">
+            <span class="metric-name">Decision velocity</span>
+            <span class="metric-value">21 / 25</span>
+            <div class="track"><div class="fill" data-width="84%"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card funnel-card" id="funnel" aria-labelledby="funnel-title">
+        <div class="card-head">
+          <div>
+            <p class="kicker">Eduky Cloud Academy</p>
+            <h2 id="funnel-title">Checkout to activation funnel</h2>
+            <p class="sub">One qualifying event per entity, illustrative baseline</p>
+          </div>
+          <span class="tag">10,000 sessions</span>
+        </div>
+
+        <div class="funnel">
+          <div class="funnel-row">
+            <div class="funnel-label"><strong>Sessions</strong><span>session_started</span></div>
+            <div class="funnel-bar-wrap"><div class="funnel-bar" data-width="100%"></div></div>
+            <div class="funnel-count"><strong>10,000</strong><span>100%</span></div>
+          </div>
+          <div class="funnel-row">
+            <div class="funnel-label"><strong>Checkout started</strong><span>checkout_started</span></div>
+            <div class="funnel-bar-wrap"><div class="funnel-bar" data-width="72%"></div></div>
+            <div class="funnel-count"><strong>2,400</strong><span>24.0%</span></div>
+          </div>
+          <div class="funnel-row">
+            <div class="funnel-label"><strong>Details submitted</strong><span>details_submitted</span></div>
+            <div class="funnel-bar-wrap"><div class="funnel-bar" data-width="43.2%"></div></div>
+            <div class="funnel-count"><strong>1,440</strong><span>60.0%</span></div>
+          </div>
+          <div class="funnel-row">
+            <div class="funnel-label"><strong>Purchase complete</strong><span>purchase_completed</span></div>
+            <div class="funnel-bar-wrap"><div class="funnel-bar" data-width="36.3%"></div></div>
+            <div class="funnel-count"><strong>1,210</strong><span>84.0%</span></div>
+          </div>
+          <div class="funnel-row">
+            <div class="funnel-label"><strong>Activated in 24h</strong><span>activation_completed</span></div>
+            <div class="funnel-bar-wrap"><div class="funnel-bar" data-width="30.8%"></div></div>
+            <div class="funnel-count"><strong>1,028</strong><span>85.0%</span></div>
+          </div>
+        </div>
+
+        <div class="constraint">
+          <span class="constraint-mark" aria-hidden="true">!</span>
+          <div><b>Largest constraint:</b> 40% of checkout starts do not submit details. The current data cannot yet separate validation failures from voluntary abandonment.</div>
+        </div>
+      </section>
+
+      <section class="card experiment-card" id="experiment" aria-labelledby="experiment-title">
+        <div class="card-head">
+          <div>
+            <p class="kicker">Experiment recommendation</p>
+            <h2 id="experiment-title">checkout-friction-v1</h2>
+          </div>
+          <span class="tag">ICE 448</span>
+        </div>
+
+        <p class="experiment-title">
+          Test a <em>4-field checkout</em> against the current 7-field flow.
+        </p>
+
+        <div class="variant-grid">
+          <div class="variant">
+            <small>Control / 50%</small>
+            <strong>7 required fields</strong>
+            <p>Current purchase experience and baseline fulfillment data.</p>
+          </div>
+          <div class="variant treatment">
+            <small>Treatment / 50%</small>
+            <strong>4 required fields</strong>
+            <p>Defer non-payment information until after verified purchase.</p>
+          </div>
+        </div>
+
+        <div class="guardrails" aria-label="Experiment guardrails">
+          <span class="guardrail">Payment errors</span>
+          <span class="guardrail">Refund rate</span>
+          <span class="guardrail">p95 latency</span>
+          <span class="guardrail">Duplicate orders</span>
+          <span class="guardrail">24h activation</span>
+        </div>
+      </section>
+
+      <section class="card insight-card" id="insight" aria-labelledby="insight-title">
+        <div class="card-head">
+          <div>
+            <p class="kicker">Amazon Bedrock insight</p>
+            <h2 id="insight-title">Grounded, not guessed</h2>
+          </div>
+          <span class="tag">investigate</span>
+        </div>
+
+        <div class="insight-body">
+          <div class="quote-mark" aria-hidden="true">"</div>
+          <blockquote>
+            Form friction is plausible, but the taxonomy cannot yet distinguish validation failure from voluntary abandonment.
+          </blockquote>
+          <div class="insight-separator"></div>
+          <div class="insight-action">
+            <b>Recommended action</b>
+            Validate details submission and error classes for seven days, then open the internal treatment stage.
+          </div>
+          <span class="evidence">2 cited metrics / aggregate input only</span>
+        </div>
+      </section>
+
+      <section class="card tasks-card" id="tasks" aria-labelledby="tasks-title">
+        <div class="card-head">
+          <div>
+            <p class="kicker">Kiro task preview</p>
+            <h2 id="tasks-title">From evidence to build plan</h2>
+          </div>
+          <span class="tag">12 tasks</span>
+        </div>
+
+        <div class="task-list">
+          <div class="task">
+            <span class="task-id">001</span>
+            <span class="task-name">Add experiment fixtures and contract tests</span>
+            <span class="task-state ready">ready</span>
+          </div>
+          <div class="task">
+            <span class="task-id">003</span>
+            <span class="task-name">Implement deterministic assignment module</span>
+            <span class="task-state">blocked</span>
+          </div>
+          <div class="task">
+            <span class="task-id">004</span>
+            <span class="task-name">Define AppConfig profile and validators</span>
+            <span class="task-state">queued</span>
+          </div>
+          <div class="task">
+            <span class="task-id">008</span>
+            <span class="task-name">Create Athena integrity and outcome views</span>
+            <span class="task-state">queued</span>
+          </div>
+          <div class="task">
+            <span class="task-id">011</span>
+            <span class="task-name">Exercise rollback and budget runbooks</span>
+            <span class="task-state">queued</span>
+          </div>
+        </div>
+        <div class="task-foot">
+          <span>requirements.md -> design.md -> tasks.md</span>
+          <span>Traceability on</span>
+        </div>
+      </section>
+
+      <section class="card services-card" aria-labelledby="services-title">
+        <div class="card-head">
+          <div>
+            <p class="kicker">AWS-native, serverless first</p>
+            <h2 id="services-title">A measured service footprint</h2>
+            <p class="sub">Each component has a purpose, cost driver, and removal trigger</p>
+          </div>
+          <span class="tag">$32-$99 est.</span>
+        </div>
+
+        <div class="services">
+          <div class="service"><span class="service-icon">API</span><strong>API Gateway</strong><span>Event boundary</span></div>
+          <div class="service"><span class="service-icon">FN</span><strong>Lambda</strong><span>Validate + analyze</span></div>
+          <div class="service"><span class="service-icon">FH</span><strong>Data Firehose</strong><span>Buffered delivery</span></div>
+          <div class="service"><span class="service-icon">S3</span><strong>Amazon S3</strong><span>Durable event lake</span></div>
+          <div class="service"><span class="service-icon">SQL</span><strong>Glue + Athena</strong><span>Funnel evidence</span></div>
+          <div class="service"><span class="service-icon">CFG</span><strong>AWS AppConfig</strong><span>Safe flag rollout</span></div>
+          <div class="service"><span class="service-icon">AI</span><strong>Amazon Bedrock</strong><span>Bounded insight</span></div>
+          <div class="service"><span class="service-icon">OBS</span><strong>CloudWatch</strong><span>Operate + rollback</span></div>
+        </div>
+
+        <div class="flowline" aria-label="Architecture flow">
+          <b>MVP</b><i>-></i><b>events</b><i>-></i><b>lake</b><i>-></i><b>metrics</b><i>-></i><b>insight</b><i>-></i><b>decision</b>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="shell">
+    <div><strong>GrowthForge AWS</strong><br>Agentic Revenue Experimentation Stack</div>
+    <div class="footer-note">
+      Static challenge demo. Illustrative metrics and cost ranges are not production results or a billing guarantee. No official AWS logos or brand assets are used.
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const bars = document.querySelectorAll("[data-width]");
+      const reveal = () => {
+        bars.forEach((bar) => {
+          bar.style.width = bar.dataset.width;
+        });
+      };
+
+      if (reducedMotion) {
+        reveal();
+      } else {
+        window.requestAnimationFrame(() => window.requestAnimationFrame(reveal));
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+name: Validate submission
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify required files
+        shell: bash
+        run: |
+          set -euo pipefail
+          required=(
+            README.md
+            JUDGE_ONE_PAGER.md
+            EVIDENCE_PACK.md
+            DEMO_SCRIPT.md
+            CONTRIBUTING.md
+            LICENSE
+            submission.md
+            prompt/growthforge-master-prompt.md
+            architecture/architecture.md
+            demo/index.html
+            docs/prerequisites.md
+            docs/use-case.md
+            docs/aws-services.md
+            docs/well-architected-mapping.md
+            docs/security-cost-controls.md
+            docs/troubleshooting.md
+            examples/startup-input-example.md
+            examples/generated-output-example.md
+            examples/kiro-tasks-example.md
+          )
+
+          for file in "${required[@]}"; do
+            test -s "$file" || {
+              echo "Missing or empty required file: $file"
+              exit 1
+            }
+          done
+
+          echo "Verified ${#required[@]} required files."
+
+      - name: Verify key submission phrases
+        shell: bash
+        run: |
+          set -euo pipefail
+          phrases=(
+            "GrowthForge AWS"
+            "Revenue Learning Score"
+            "Amazon Bedrock"
+            "AWS AppConfig"
+            "Kiro-ready"
+            "Well-Architected"
+          )
+
+          for phrase in "${phrases[@]}"; do
+            grep -R -F -q \
+              --include='*.md' \
+              --include='*.html' \
+              --exclude-dir='.git' \
+              "$phrase" .
+          done
+
+          echo "All key phrases are present."
+
+      - name: Check core consistency and demo constraints
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          grep -F -q "87/100" README.md
+          grep -F -q "**87/100**" examples/generated-output-example.md
+          grep -F -q "<strong>87</strong>" demo/index.html
+          grep -F -q "aggregate" prompt/growthforge-master-prompt.md
+          grep -F -q "AppConfig is used for safe configuration delivery" README.md
+
+          if grep -E -q '<(script|link)[^>]+(src|href)="https?://' demo/index.html; then
+            echo "demo/index.html must not load external scripts or stylesheets."
+            exit 1
+          fi
+
+          if grep -E -q '<img[^>]+src="https?://' demo/index.html; then
+            echo "demo/index.html must not load external images."
+            exit 1
+          fi
+
+          echo "Core claims and offline demo constraints are consistent."

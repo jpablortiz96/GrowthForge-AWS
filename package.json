@@ -1,0 +1,12 @@
+{
+  "name": "growthforge-aws",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Visual asset tooling for the GrowthForge AWS prompt submission.",
+  "scripts": {
+    "capture:assets": "node scripts/capture-readme-assets.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.60.0"
+  }
+}

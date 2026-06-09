@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="330" viewBox="0 0 1600 330" role="img" aria-labelledby="title desc">
+  <title id="title">GrowthForge AWS judge path</title>
+  <desc id="desc">A six-step review path: Score, Funnel drop, Experiment, Bedrock insight, Kiro tasks, and AWS architecture.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#090c12"/>
+      <stop offset="1" stop-color="#111720"/>
+    </linearGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff9900"/>
+      <stop offset="1" stop-color="#ffc266"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="330" rx="28" fill="url(#bg)"/>
+  <rect x="1" y="1" width="1598" height="328" rx="27" fill="none" stroke="#ffffff" stroke-opacity="0.1"/>
+
+  <g transform="translate(64 54)" font-family="Inter,Segoe UI,Arial,sans-serif">
+    <text fill="#ffb84d" font-size="13" font-weight="800" letter-spacing="2">30-SECOND REVIEW PATH</text>
+    <text y="38" fill="#f7f8fa" font-size="29" font-weight="740">Six proof points. One traceable story.</text>
+    <text y="67" fill="#929cab" font-size="14">Start with readiness, find the constraint, inspect the decision system.</text>
+  </g>
+
+  <path d="M105 203H1490" fill="none" stroke="#252d39" stroke-width="4" stroke-linecap="round"/>
+  <path d="M105 203H1490" fill="none" stroke="url(#line)" stroke-opacity="0.4" stroke-width="2" stroke-linecap="round"/>
+
+  <g font-family="Inter,Segoe UI,Arial,sans-serif">
+    <g transform="translate(105 203)">
+      <circle r="29" fill="#171d27" stroke="#ff9900" stroke-opacity="0.7" stroke-width="2"/>
+      <text y="6" text-anchor="middle" fill="#ffb84d" font-size="17" font-weight="800">1</text>
+      <text y="63" text-anchor="middle" fill="#f1f3f6" font-size="15" font-weight="720">Score</text>
+      <text y="84" text-anchor="middle" fill="#8792a1" font-size="11">87 / 100</text>
+    </g>
+    <g transform="translate(382 203)">
+      <circle r="29" fill="#171d27" stroke="#ff9900" stroke-opacity="0.7" stroke-width="2"/>
+      <text y="6" text-anchor="middle" fill="#ffb84d" font-size="17" font-weight="800">2</text>
+      <text y="63" text-anchor="middle" fill="#f1f3f6" font-size="15" font-weight="720">Funnel drop</text>
+      <text y="84" text-anchor="middle" fill="#8792a1" font-size="11">Find the constraint</text>
+    </g>
+    <g transform="translate(659 203)">
+      <circle r="29" fill="#171d27" stroke="#ff9900" stroke-opacity="0.7" stroke-width="2"/>
+      <text y="6" text-anchor="middle" fill="#ffb84d" font-size="17" font-weight="800">3</text>
+      <text y="63" text-anchor="middle" fill="#f1f3f6" font-size="15" font-weight="720">Experiment</text>
+      <text y="84" text-anchor="middle" fill="#8792a1" font-size="11">4 fields vs. 7</text>
+    </g>
+    <g transform="translate(936 203)">
+      <circle r="29" fill="#171d27" stroke="#ff9900" stroke-opacity="0.7" stroke-width="2"/>
+      <text y="6" text-anchor="middle" fill="#ffb84d" font-size="17" font-weight="800">4</text>
+      <text y="63" text-anchor="middle" fill="#f1f3f6" font-size="15" font-weight="720">Bedrock insight</text>
+      <text y="84" text-anchor="middle" fill="#8792a1" font-size="11">Evidence, not guesswork</text>
+    </g>
+    <g transform="translate(1213 203)">
+      <circle r="29" fill="#171d27" stroke="#ff9900" stroke-opacity="0.7" stroke-width="2"/>
+      <text y="6" text-anchor="middle" fill="#ffb84d" font-size="17" font-weight="800">5</text>
+      <text y="63" text-anchor="middle" fill="#f1f3f6" font-size="15" font-weight="720">Kiro tasks</text>
+      <text y="84" text-anchor="middle" fill="#8792a1" font-size="11">Ready to implement</text>
+    </g>
+    <g transform="translate(1490 203)">
+      <circle r="29" fill="#171d27" stroke="#ff9900" stroke-opacity="0.7" stroke-width="2"/>
+      <text y="6" text-anchor="middle" fill="#ffb84d" font-size="17" font-weight="800">6</text>
+      <text y="63" text-anchor="middle" fill="#f1f3f6" font-size="15" font-weight="720">AWS architecture</text>
+      <text y="84" text-anchor="middle" fill="#8792a1" font-size="11">Safe and cost-capped</text>
+    </g>
+  </g>
+</svg>

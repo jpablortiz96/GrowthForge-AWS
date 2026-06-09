@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="560" viewBox="0 0 1400 560" role="img" aria-labelledby="title desc">
+  <title id="title">Revenue Learning Score 87 out of 100</title>
+  <desc id="desc">Revenue Learning Score components: Signal quality 23 out of 25, Funnel clarity 21 out of 25, Experiment readiness 22 out of 25, Decision velocity 21 out of 25.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a0d13"/>
+      <stop offset="1" stop-color="#111722"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff9900"/>
+      <stop offset="1" stop-color="#ffd27a"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="15" stdDeviation="22" flood-color="#000000" flood-opacity="0.42"/>
+    </filter>
+  </defs>
+
+  <rect width="1400" height="560" rx="30" fill="url(#bg)"/>
+  <rect x="1" y="1" width="1398" height="558" rx="29" fill="none" stroke="#ffffff" stroke-opacity="0.1"/>
+  <circle cx="1210" cy="70" r="260" fill="#ff9900" fill-opacity="0.035"/>
+
+  <g transform="translate(68 58)" font-family="Inter,Segoe UI,Arial,sans-serif">
+    <text fill="#ffb84d" font-size="13" font-weight="800" letter-spacing="2">DECISION READINESS</text>
+    <text y="42" fill="#f7f8fa" font-size="32" font-weight="740">Revenue Learning Score</text>
+    <text y="72" fill="#929cab" font-size="15">Can the team make the next product decision with trustworthy evidence?</text>
+  </g>
+
+  <g transform="translate(236 322)" filter="url(#shadow)">
+    <circle r="142" fill="#0b1017" stroke="#202733" stroke-width="25"/>
+    <circle r="142" fill="none" stroke="#ff9900" stroke-width="25" stroke-linecap="round" stroke-dasharray="776 892" transform="rotate(-90)"/>
+    <text y="-6" text-anchor="middle" fill="#f8f9fb" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="78" font-weight="780" letter-spacing="-4">87</text>
+    <text y="30" text-anchor="middle" fill="#9ba5b4" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="17" font-weight="700">out of 100</text>
+    <rect x="-78" y="58" width="156" height="30" rx="15" fill="#63d9a6" fill-opacity="0.08" stroke="#63d9a6" stroke-opacity="0.25"/>
+    <text y="78" text-anchor="middle" fill="#8ce9c3" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" font-weight="800">DECISION-READY</text>
+  </g>
+
+  <g transform="translate(510 155)" font-family="Inter,Segoe UI,Arial,sans-serif">
+    <g>
+      <text fill="#d6dbe3" font-size="17" font-weight="700">Signal quality</text>
+      <text x="774" text-anchor="end" fill="#f7f8fa" font-size="17" font-weight="760">23 / 25</text>
+      <rect y="25" width="774" height="11" rx="5.5" fill="#222a36"/>
+      <rect y="25" width="712" height="11" rx="5.5" fill="url(#bar)"/>
+      <text y="59" fill="#8994a3" font-size="13">Valid events, deduplication, identity continuity, sufficient volume</text>
+    </g>
+    <g transform="translate(0 91)">
+      <text fill="#d6dbe3" font-size="17" font-weight="700">Funnel clarity</text>
+      <text x="774" text-anchor="end" fill="#f7f8fa" font-size="17" font-weight="760">21 / 25</text>
+      <rect y="25" width="774" height="11" rx="5.5" fill="#222a36"/>
+      <rect y="25" width="650" height="11" rx="5.5" fill="url(#bar)"/>
+      <text y="59" fill="#8994a3" font-size="13">Instrumented steps, stable definitions, baseline, and guardrails</text>
+    </g>
+    <g transform="translate(0 182)">
+      <text fill="#d6dbe3" font-size="17" font-weight="700">Experiment readiness</text>
+      <text x="774" text-anchor="end" fill="#f7f8fa" font-size="17" font-weight="760">22 / 25</text>
+      <rect y="25" width="774" height="11" rx="5.5" fill="#222a36"/>
+      <rect y="25" width="681" height="11" rx="5.5" fill="url(#bar)"/>
+      <text y="59" fill="#8994a3" font-size="13">Hypothesis, exposure integrity, allocation, decision and rollback rules</text>
+    </g>
+    <g transform="translate(0 273)">
+      <text fill="#d6dbe3" font-size="17" font-weight="700">Decision velocity</text>
+      <text x="774" text-anchor="end" fill="#f7f8fa" font-size="17" font-weight="760">21 / 25</text>
+      <rect y="25" width="774" height="11" rx="5.5" fill="#222a36"/>
+      <rect y="25" width="650" height="11" rx="5.5" fill="url(#bar)"/>
+      <text y="59" fill="#8994a3" font-size="13">Fresh data, current analysis, named owner, and decision deadline</text>
+    </g>
+  </g>
+
+  <text x="68" y="522" fill="#798494" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="13">Readiness indicator only - not a revenue forecast and not a substitute for statistical analysis</text>
+</svg>

@@ -32,6 +32,12 @@ jobs:
             examples/generated-output-example.md
             examples/startup-input-example.md
             examples/kiro-tasks-example.md
+            assets/readme/hero.svg
+            assets/readme/architecture-diagram.svg
+            assets/readme/revenue-learning-score.svg
+            assets/readme/judge-path.svg
+            assets/readme/demo-screenshot.png
+            assets/readme/demo-screenshot-mobile.png
           )
 
           for file in "${required[@]}"; do

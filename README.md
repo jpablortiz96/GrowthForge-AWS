@@ -1,3 +1,5 @@
+![GrowthForge AWS Hero](assets/readme/hero.svg)
+
 # GrowthForge AWS
 
 ## Turn a deployed MVP into a revenue learning system
@@ -21,6 +23,30 @@
 | [Worked generated output](examples/generated-output-example.md) | Architecture, events, funnel, experiment, score, insight, and controls |
 
 Record a 30-45 second walkthrough using the static demo path.
+
+## 30-second review path
+
+![Judge Path](assets/readme/judge-path.svg)
+
+1. **Score:** confirm whether the startup has enough trustworthy evidence to decide.
+2. **Funnel drop:** identify the largest measurable constraint.
+3. **Experiment:** inspect the hypothesis, variants, guardrails, and rollback rules.
+4. **Bedrock insight:** verify that AI interpretation is grounded in computed aggregates.
+5. **Kiro tasks:** trace the recommendation into requirements, design, and implementation.
+6. **AWS architecture:** review the serverless data, control, insight, security, and cost boundaries.
+
+## Static demo preview
+
+<p align="center">
+  <a href="demo/index.html">
+    <img src="assets/readme/demo-screenshot.png" width="76%" alt="GrowthForge AWS desktop demo showing the judge path, Revenue Learning Score, and checkout funnel">
+  </a>
+  <a href="demo/index.html">
+    <img src="assets/readme/demo-screenshot-mobile.png" width="20%" alt="GrowthForge AWS mobile demo">
+  </a>
+</p>
+
+<p align="center"><strong><a href="demo/index.html">Open the interactive one-file demo</a></strong></p>
 
 ---
 
@@ -83,41 +109,19 @@ This repository is the prompt package and an illustrative demo. It is intentiona
 
 ## AWS architecture at a glance
 
-```mermaid
-flowchart LR
-    A[MVP application] -->|product events| B[Amazon API Gateway]
-    B --> C[AWS Lambda collector]
-    C --> D[Amazon Data Firehose]
-    D --> E[Amazon S3 event lake]
-    E --> F[AWS Glue Data Catalog]
-    F --> G[Amazon Athena]
-    G --> H[Scheduled analysis Lambda]
-    I[Amazon EventBridge] --> H
-    J[Amazon DynamoDB experiment registry] <--> H
-    K[AWS AppConfig feature flags] --> A
-    A -->|experiment_exposed| B
-    H --> L[Amazon Bedrock insight workflow]
-    L --> M[Amazon CloudWatch]
-    L --> N[Amazon SNS or SES]
-    L --> O[Kiro-ready task artifacts]
-```
+![GrowthForge AWS Architecture](assets/readme/architecture-diagram.svg)
 
 The collector validates and enriches events before Amazon Data Firehose delivers them to a partitioned S3 event lake. AWS Glue provides table metadata and Athena computes funnel and experiment metrics. EventBridge starts a bounded analysis job; Amazon Bedrock receives only aggregated, structured evidence. DynamoDB stores experiment state, while AWS AppConfig distributes validated feature flags with gradual deployment and CloudWatch-alarm rollback.
 
 AWS AppConfig is used for safe configuration delivery. Stable variant assignment, exposure logging, and experiment analysis are explicitly designed by the generated plan rather than presented as native AppConfig statistical experimentation.
 
-See [the detailed architecture](architecture/architecture.md).
+See [the detailed architecture and editable Mermaid diagram](architecture/architecture.md).
 
 ## Revenue Learning Score
 
 The Revenue Learning Score answers a practical question: **does this team have enough trustworthy evidence and operating discipline to make the next product decision?**
 
-| Component | Weight | Evidence |
-| --- | ---: | --- |
-| Signal quality | 25 | Valid-event rate, deduplication, identity continuity, sample sufficiency |
-| Funnel clarity | 25 | Instrumented steps, stable definitions, baseline and guardrails |
-| Experiment readiness | 25 | Falsifiable hypothesis, exposure event, allocation, stop and rollback rules |
-| Decision velocity | 25 | Data freshness, assigned owner, current insight, decision age |
+![Revenue Learning Score](assets/readme/revenue-learning-score.svg)
 
 ```text
 Revenue Learning Score =
@@ -129,7 +133,7 @@ Revenue Learning Score =
 
 Each component is scored from 0 to 25 using declared thresholds. The example score of **87/100** is `23 + 21 + 22 + 21`. It is a readiness indicator, not a prediction of revenue and not a substitute for statistical analysis.
 
-## Demo walkthrough in 30 seconds
+## Demo walkthrough
 
 1. Open [`demo/index.html`](demo/index.html) in a browser.
 2. Read the 87/100 score and the weakest component: decision velocity.
@@ -149,8 +153,18 @@ The demo is one responsive HTML file with no build step, network calls, external
 |-- EVIDENCE_PACK.md
 |-- CONTRIBUTING.md
 |-- LICENSE
+|-- package.json
+|-- package-lock.json
 |-- submission.md
 |-- .github/workflows/validate.yml
+|-- assets/
+|   `-- readme/
+|       |-- architecture-diagram.svg
+|       |-- demo-screenshot-mobile.png
+|       |-- demo-screenshot.png
+|       |-- hero.svg
+|       |-- judge-path.svg
+|       `-- revenue-learning-score.svg
 |-- architecture/
 |   `-- architecture.md
 |-- demo/
@@ -166,6 +180,8 @@ The demo is one responsive HTML file with no build step, network calls, external
 |   |-- generated-output-example.md
 |   |-- kiro-tasks-example.md
 |   `-- startup-input-example.md
+|-- scripts/
+|   `-- capture-readme-assets.mjs
 `-- prompt/
     `-- growthforge-master-prompt.md
 ```
@@ -230,15 +246,15 @@ Read the full [security and cost control plan](docs/security-cost-controls.md).
 
 Generic deployment prompts optimize for infrastructure completion. GrowthForge optimizes for **decision quality after launch**.
 
-| Generic deployment prompt | GrowthForge AWS |
+| Another deployment prompt | GrowthForge AWS |
 | --- | --- |
-| Ends with a running workload | Ends with a measurable decision loop |
-| Produces infrastructure resources | Produces product events, funnels, experiments, and tasks |
-| Treats analytics as a dashboard | Defines metrics, denominators, guardrails, and stop rules |
-| Adds AI to summarize text | Grounds Bedrock in computed evidence with token and call ceilings |
-| Mentions feature flags | Specifies assignment, exposure, rollout, rollback, and registry state |
-| Gives a monthly estimate | Adds budgets, anomaly alerts, scan limits, retention, and kill switches |
-| Generates a broad backlog | Generates dependency-ordered, acceptance-tested Kiro tasks |
+| **Finish line:** workload is running | **Finish line:** team can make a measurable decision |
+| Infrastructure resources | Product events, funnel, experiment, insight, and tasks |
+| Dashboard metrics | Explicit denominators, windows, guardrails, and stop rules |
+| AI-generated summary | Bedrock grounded in computed evidence with call/token ceilings |
+| Feature flag mentioned | Assignment, exposure, rollout, rollback, and state specified |
+| Estimated monthly cost | Budgets, anomaly alerts, scan limits, retention, and kill switches |
+| Broad implementation backlog | Dependency-ordered, acceptance-tested Kiro tasks |
 
 GrowthForge also differs from adjacent prompt categories:
 

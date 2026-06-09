@@ -4,6 +4,8 @@
 
 GrowthForge turns product behavior into a controlled AWS decision loop without placing analytics on the transactional path. API Gateway and Lambda validate versioned, no-direct-PII events; Amazon Data Firehose delivers them to an encrypted S3 event lake; Glue and Athena compute funnel, quality, and experiment evidence; DynamoDB records experiment state; and AWS AppConfig distributes validated flags with staged rollout and CloudWatch-alarm rollback. EventBridge starts a bounded analysis job that sends aggregates only to Amazon Bedrock, validates the returned insight, publishes through CloudWatch and SNS or SES, and converts the selected recommendation into Kiro-ready requirements, design, and tasks. IAM, KMS, CloudTrail, AWS Budgets, Cost Anomaly Detection, retention, query limits, and independent kill switches make the loop reviewable, reversible, and proportional to an early-stage startup.
 
+![Architecture diagram](../assets/readme/architecture-diagram.svg)
+
 ## System diagram
 
 ```mermaid

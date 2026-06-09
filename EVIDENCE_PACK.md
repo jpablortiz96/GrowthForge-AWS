@@ -76,6 +76,15 @@ This file maps submission claims to repository evidence. Checkboxes indicate tha
 - [x] AWS service footprint and cost-estimate disclaimer
 - [x] Responsive desktop and mobile layout
 
+## Visual evidence
+
+- [x] README hero asset exists - [`assets/readme/hero.svg`](assets/readme/hero.svg)
+- [x] Architecture diagram exists - [`assets/readme/architecture-diagram.svg`](assets/readme/architecture-diagram.svg)
+- [x] Desktop demo screenshot exists - [`assets/readme/demo-screenshot.png`](assets/readme/demo-screenshot.png)
+- [x] Mobile demo screenshot exists - [`assets/readme/demo-screenshot-mobile.png`](assets/readme/demo-screenshot-mobile.png)
+- [x] Revenue Learning Score visual exists - [`assets/readme/revenue-learning-score.svg`](assets/readme/revenue-learning-score.svg)
+- [x] Judge path visual exists - [`assets/readme/judge-path.svg`](assets/readme/judge-path.svg)
+
 ## Example output evidence
 
 - [x] Architecture summary
